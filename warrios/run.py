@@ -41,7 +41,7 @@ crossdomain_xml_server = Application([
 
 app.listen(PORT)
 
-crossdomain_xml_server.listen(843)
+#crossdomain_xml_server.listen(843)
 
 print "Server started at port " + str(PORT)
 

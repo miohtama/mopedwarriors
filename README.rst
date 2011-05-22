@@ -35,10 +35,16 @@ Installation::
 Running the server
 ====================
 
+The server must be run as superuser, because we need to bind port 843 for Flash security.
+
 	source virtualenv/bin/activate
 	cd warriors
-	python run.py
-		
+	sudo python run.py 
+
+Now point your browser to
+
+	http://localhost:9999/test.html
+	
 Communications
 ================
 
