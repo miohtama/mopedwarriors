@@ -1,5 +1,6 @@
 import sys
 import os
+import logging
 
 import tornado.ioloop
 import tornado.web
@@ -12,7 +13,7 @@ PORT = 9999
 
 sys.path.append("..")
 
-from server.main import GameServer, WebHandler
+from server.main import GameServer, CommunicationHandlerFactory
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -21,11 +22,15 @@ class MainHandler(tornado.web.RequestHandler):
         self.write("Hello, world")
 
 
+logging.basicConfig(level=logging.DEBUG)
+
+server = GameServer()
+
 static_path = os.path.join(os.path.dirname(__file__), "..", "client", "html")
 static_path = os.path.abspath(static_path)
 
 app = Application([
-   ("/websocket", WebSocketHandler),
+   ("/websocket", CommunicationHandlerFactory(server)),
    (r"/(.*)", tornado.web.StaticFileHandler, {"path": static_path}),               
    ])
 
